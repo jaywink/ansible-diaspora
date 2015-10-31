@@ -53,7 +53,7 @@ The configuration is split into 4 main parts:
 
 ### SSL
 
-Default configuration will make the pod run on HTTPS, which of course is bad. To make it run on HTTPS, get some certificates, place them in your vars file, and then switch `diaspora_yml.configuration.environment.require_ssl` to `true`. Rerun role, that is it. No excuses to run on HTTP.
+Default configuration will make the pod run on HTTP, which of course is bad. To make it run on HTTPS, get some certificates, place them in your vars file, and then switch `diaspora_yml.configuration.environment.require_ssl` to `true`. Rerun role, that is it. No excuses to run on HTTP.
 
 ### Domain name
 
@@ -74,7 +74,7 @@ Once deployed, the pod will be available an running. That's it! A few things to 
 
 ## Caveats
 
-While automating maintenance, this role doesn't do your backups. [Do your backups!](https://wiki.diasporafoundation.org/FAQ_for_pod_maintainers#How_do_I_back_up_my_pod.3F).
+While automating maintenance, this role doesn't do your backups. [Do your backups!](https://wiki.diasporafoundation.org/FAQ_for_pod_maintainers#How_do_I_back_up_my_pod.3F)
 
 ## Contact
 
