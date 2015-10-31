@@ -1,0 +1,5 @@
+---
+- name: Upstart init template
+  template: dest=/etc/init/{{ servicename }}.conf src=upstart.init.j2
+- name: Restart service
+  service: name={{ servicename }} state=restarted

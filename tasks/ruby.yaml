@@ -1,0 +1,23 @@
+---
+- name: Dependencies for Ruby
+  apt: name={{ item }} state=present
+  with_items:
+    - gawk
+    - libreadline6-dev
+    - libyaml-dev
+    - libsqlite3-dev
+    - sqlite3
+    - autoconf
+    - libgdbm-dev
+    - libncurses5-dev
+    - automake
+    - bison
+    - libffi-dev
+- name: Get required Ruby version
+  shell: cat /home/{{ os_user }}/diaspora/.ruby-version
+  register: ruby_version
+- name: Install or build Ruby using RVM
+  # We use a wrapper script as RVM doesn't play nice through Ansible
+  script: shell_wrapper.sh rvm install {{ ruby_version.stdout }}
+  become: yes
+  become_user: "{{ os_user }}"

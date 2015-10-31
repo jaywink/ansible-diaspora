@@ -1,0 +1,3 @@
+---
+- name: Diaspora user
+  user: name={{ os_user }} state=present

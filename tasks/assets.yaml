@@ -1,0 +1,7 @@
+---
+- name: Precompile assets
+  script: shell_wrapper.sh bin/rake assets:precompile
+  become: yes
+  become_user: "{{ os_user }}"
+  when: skip_precompile is not defined
+

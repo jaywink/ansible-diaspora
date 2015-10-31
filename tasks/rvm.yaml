@@ -1,0 +1,11 @@
+---
+- name: RVM gpg key
+  shell: /usr/bin/gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+  become: yes
+  become_user: "{{ os_user }}"
+- name: Install RVM
+  shell: /usr/bin/curl -L dspr.tk/1t | bash
+  become: yes
+  become_user: "{{ os_user }}"
+- name: RVM in .bashrc
+  lineinfile: dest=/home/{{ os_user }}/.bashrc state=present line='[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"'

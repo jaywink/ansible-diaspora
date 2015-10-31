@@ -1,0 +1,14 @@
+---
+- name: Ensure github.com is a known host
+  lineinfile:
+    dest: /home/{{ os_user }}/.ssh/known_hosts
+    create: yes
+    state: present
+    line: "{{ lookup('pipe', 'ssh-keyscan -t rsa github.com') }}"
+    regexp: "^github\\.com"
+  become: yes
+  become_user: "{{ os_user }}"
+- name: Clone source
+  git: dest=/home/{{ os_user }}/diaspora accept_hostkey=yes force=yes repo=https://github.com/{{ repository }}.git version={{ branch }}
+  become: yes
+  become_user: "{{ os_user }}"

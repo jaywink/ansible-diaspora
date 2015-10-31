@@ -1,0 +1,19 @@
+# diaspora*
+
+description "diaspora*"
+author "Jason Robinson <mail@jasonrobinson.me>"
+
+start on runlevel [2345]
+stop on starting rc RUNLEVEL=[016]
+
+respawn
+respawn limit 2 5
+
+limit nofile 50000 50000
+
+script
+    sleep 10
+    sudo -u {{ os_user }} -H bash -c "source /home/{{ os_user }}/.bash_profile && cd /home/{{ os_user }}/diaspora && rvm use `cat /home/{{ os_user }}/diaspora/.ruby-version`@diaspora && DB=postgres RAILS_ENV=production ./script/server"
+end script
+
+pre-stop exec /usr/bin/killall -u {{ os_user }} ruby && sleep 10

@@ -1,0 +1,95 @@
+---
+### OVERRIDE ANY VARIABLES HERE IN YOUR OWN VARS FILE by copying this as a template
+
+# Configuration specific to this ansible playbook
+os_user: diaspora
+repository: diaspora/diaspora
+branch: master
+# This is used to make name for not just upstart service, but apache config and cert files
+servicename: diaspora
+# This needs to be given for Apache virtual host - should match environment_url below, without protocol
+domainname: localhost
+# Local port to listen on - you only need to change this if running multiple diaspora* instances on the same server
+# Make sure to mirror the change in server_listen below.
+listen_port: 3000
+
+
+# Configuration mirroring configuration items in config/diaspora.yml
+# Add any items here which you would normally set in diaspora.yml
+# This content will be written over diaspora.yml
+diaspora_yml:
+  configuration:
+    environment:
+      url: "http://localhost/"
+      certificate_authorities: '/etc/ssl/certs/ca-certificates.crt'
+      #require_ssl: true
+      sidekiq:
+        namespace: diaspora
+        concurrency: 2
+        backtrace: false
+    server:
+      listen: '127.0.0.1:3000'
+      # This Ansible playbook is designed for production instances currently
+      rails_environment: 'production'
+    chat:
+      #enabled: true
+      server:
+        bosh:
+          #proxy: true
+          #bind: "/http-bind"
+    privacy:
+      statistics:
+        user_counts: true
+        post_counts: true
+        comment_counts: true
+    settings:
+      #pod_name: "diaspora*"
+      #enable_registrations: false
+      invitations_open: false
+      maintenance:
+        database_size_control:
+          enable: true
+      terms:
+        enable: true
+    mail:
+      #enable: true
+      #method: smtp
+      smtp:
+        #host: 127.0.0.1
+        #port: 587
+        #username: podmin@localhost
+        #password: changeme
+        #domain: 127.0.0.1
+    admins:
+      #account: "yournamehere"
+      #podmin_email: "youremailhere@example.com"
+    relay:
+      outbound:
+        send: true
+      inbound:
+        subscribe: true
+        include_user_tags: true
+        pod_tags: diaspora,podmin,podmins
+
+
+# Database configuration
+db_user: diaspora
+db_password: changeme
+db_host: 127.0.0.1
+db_port: 5432
+db_name: diaspora
+db_pool: 25
+
+# Certificates
+#ssl_cert: |
+#  -----BEGIN CERTIFICATE-----
+#  ABCD
+#  -----END CERTIFICATE-----
+#ssl_key: |
+#  -----BEGIN PRIVATE KEY-----
+#  ABCD
+#  -----END PRIVATE KEY-----
+#ssl_chain: |
+#  -----BEGIN CERTIFICATE-----
+#  ABCD
+#  -----END CERTIFICATE-----

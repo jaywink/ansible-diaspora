@@ -1,0 +1,12 @@
+---
+- include: packages.yaml
+- include: user.yaml
+- include: rvm.yaml
+- include: source.yaml
+- include: config.yaml
+- include: ruby.yaml
+- include: bundler.yaml
+- include: database.yaml
+- include: assets.yaml
+- include: init.yaml
+- include: apache.yaml

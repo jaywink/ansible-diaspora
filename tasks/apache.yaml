@@ -1,0 +1,35 @@
+---
+- name: Apache modules
+  apache2_module: state=present name={{ item }}
+  with_items:
+    - proxy
+    - ssl
+    - rewrite
+    - headers
+    - proxy_http
+    - proxy_balancer
+    - lbmethod_byrequests
+    - slotmem_shm
+  notify:
+    - restart apache
+- name: Apache site
+  template: dest=/etc/apache2/sites-available/{{ servicename }}.conf src=apache.conf.j2
+- name: SSL cert
+  copy:
+    content: "{{ ssl_cert }}"
+    dest: /etc/ssl/certs/{{ servicename }}.crt
+  when: ssl_cert is defined
+- name: SSL key
+  copy:
+    content: "{{ ssl_key }}"
+    dest: /etc/ssl/private/{{ servicename }}.key
+  when: ssl_key is defined
+- name: SSL chain
+  copy:
+    content: "{{ ssl_chain }}"
+    dest: /etc/ssl/certs/{{ servicename }}.chain.crt
+  when: ssl_chain is defined
+- name: Enable site
+  command: a2ensite {{ servicename }}
+  notify:
+    - restart apache
