@@ -1,6 +1,7 @@
 ---
 - name: Node.js repository - Ubuntu
   apt_repository: state=present repo=ppa:chris-lea/node.js
+  when: ansible_distribution_major_version|int < 14
 - name: Locale patch for postgres
   # Ubuntu 14.04 has some weird locale issues, make sure some things are set
   # Otherwise postgres will fail to init properly
