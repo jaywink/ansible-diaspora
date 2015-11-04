@@ -22,5 +22,5 @@
     - libxml2-dev
     - libxslt-dev
     - libpq-dev
-    - postgresql-9.3
+    - postgresql
     - python-psycopg2
