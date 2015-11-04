@@ -12,8 +12,7 @@ respawn limit 2 5
 limit nofile 50000 50000
 
 script
-    sleep 10
-    sudo -u {{ os_user }} -H bash -c "source /home/{{ os_user }}/.bash_profile && cd /home/{{ os_user }}/diaspora && rvm use `cat /home/{{ os_user }}/diaspora/.ruby-version`@diaspora && DB=postgres RAILS_ENV=production ./script/server"
+    /home/{{ os_user }}/start_server.sh
 end script
 
 pre-stop exec /usr/bin/killall -u {{ os_user }} ruby && sleep 10

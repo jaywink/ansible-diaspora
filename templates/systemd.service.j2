@@ -1,0 +1,8 @@
+[Unit]
+Description=Diaspora*
+
+[Service]
+ExecStart=/bin/bash -ec '/home/{{ os_user }}/start_server.sh'
+
+[Install]
+WantedBy=multi-user.target

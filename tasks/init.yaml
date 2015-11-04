@@ -1,5 +1,19 @@
 ---
+- name: Startup script
+  template: dest=/home/{{ os_user }}/start_server.sh src=start_server.sh mode=0700
+
+# Upstart, Ubuntu 14.10 and below
 - name: Upstart init template
   template: dest=/etc/init/{{ servicename }}.conf src=upstart.init.j2
+  when: ansible_distribution_major_version|int < 15
+
+# SystemD, Ubuntu 15.04 and above
+- name: Systemd service template
+  template: dest=/lib/systemd/system/{{ servicename }}.service src=systemd.service.j2
+  when: ansible_distribution_major_version|int >= 15
+- name: Reload systemd
+  command: systemctl daemon-reload
+  when: ansible_distribution_major_version|int >= 15
+
 - name: Restart service
   service: name={{ servicename }} state=restarted
