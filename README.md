@@ -22,7 +22,12 @@ This role includes a slightly more light weight configuration than the default i
 
 ### OS
 
-Currently only Ubuntu 14.04 targets have verified. Ubuntu versions near this will likely work.
+Currently only Ubuntu targets have verified. Ubuntu versions below have been verified to work:
+
+* 14.04 (Trusty)
+* 15.04 (Vivid)
+
+15.10 is not supported, see [this issue](https://github.com/jaywink/ansible-diaspora/issues/1).
 
 Pull requests welcome to include other platforms!
 
