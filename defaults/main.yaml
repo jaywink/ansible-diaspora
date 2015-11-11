@@ -7,7 +7,10 @@ repository: diaspora/diaspora
 branch: master
 # This is used to make name for not just upstart service, but apache config and cert files
 servicename: diaspora
-# This needs to be given for Apache virtual host - should match environment_url below, without protocol
+# This needs to be given for Apache virtual host
+# should match environment_url below, without protocol.
+# Also make sure to change mail.sender_address, if you enable mail.
+# TODO: Make it only necessary to have domain name in one setting..
 domainname: localhost
 # Local port to listen on - you only need to change this if running multiple diaspora* instances on the same server
 # Make sure to mirror the change in server_listen below.
@@ -54,6 +57,7 @@ diaspora_yml:
     mail:
       #enable: true
       #method: smtp
+      #sender_address: 'no-reply@example.org'
       smtp:
         #host: 127.0.0.1
         #port: 587
