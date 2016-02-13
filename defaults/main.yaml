@@ -27,6 +27,7 @@ diaspora_yml:
       certificate_authorities: '/etc/ssl/certs/ca-certificates.crt'
       #require_ssl: true
       sidekiq:
+        ## NOTE! Namespaces are being removed in diaspora* 0.6 - use 'redis' to specify an url instead
         namespace: diaspora
         concurrency: 2
         backtrace: false
@@ -34,10 +35,10 @@ diaspora_yml:
       listen: '127.0.0.1:3000'
       # This Ansible playbook is designed for production instances currently
       rails_environment: 'production'
-    chat:
+    #chat:
       #enabled: true
-      server:
-        bosh:
+      #server:
+        #bosh:
           #proxy: true
           #bind: "/http-bind"
     privacy:
@@ -49,9 +50,6 @@ diaspora_yml:
       #pod_name: "diaspora*"
       #enable_registrations: false
       invitations_open: false
-      maintenance:
-        database_size_control:
-          enable: true
       terms:
         enable: true
     mail:
