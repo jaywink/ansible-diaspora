@@ -1,0 +1,10 @@
+---
+## Set up cron jobs to collect backups
+- name: Ensure backups path exists
+  become_user: "{{ os_user }}"
+  file: path=/home/{{ os_user }}/backups mode=0700 state=directory
+- name: Install backups scripts
+  become_user: "{{ os_user }}"
+  template: dest=/home/{{ os_user }}/prepare_diaspora_backups.sh src=prepare_diaspora_backups.sh.j2 mode=0700
+- name: Set cron for backup script execution
+  cron: backup=yes hour=6 minute=10 name="diaspora_{{ os_user }}_db_backup" state=present user=root job="/home/{{ os_user }}/prepare_diaspora_backups.sh"

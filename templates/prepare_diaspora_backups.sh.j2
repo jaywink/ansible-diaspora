@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Copies latest backup dump to local folder and encrypts it
+
+# Copy latest backup dump to home folder
+cp `ls -rt1 {{ diaspora_backups_copypath }} | tail -n1` /home/{{ os_user }}/backups/
+
+# Encrypt it
+dump_file=`ls -rt1 /home/{{ os_user }}/backups/ | tail -n1`
+cd /home/{{ os_user }}/backups/
+echo "{{ diaspora_backups_key }}" | gpg -c --yes --passphrase-fd 0 $dump_file
+chown {{ os_user }}: $dump_file.gpg
+chmod 0600 $dump_file.gpg
+rm -f $dump_file
+
+# Clean up files older than 3 days
+find /home/{{ os_user }}/backups/* -mtime +3 -exec rm {} \;

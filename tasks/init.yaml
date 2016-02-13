@@ -1,5 +1,6 @@
 ---
 - name: Startup script
+  become_user: "{{ os_user }}"
   template: dest=/home/{{ os_user }}/start_server.sh src=start_server.sh mode=0700
 
 # Upstart, Ubuntu 14.10 and below

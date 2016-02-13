@@ -15,6 +15,11 @@ domainname: localhost
 # Local port to listen on - you only need to change this if running multiple diaspora* instances on the same server
 # Make sure to mirror the change in server_listen below.
 listen_port: 3000
+# DB backups
+# Use any path/file glob that can be used in a cp command. Last of the files will be taken
+#diaspora_backups_copypath: '/var/lib/postgresql/backups/diaspora*'
+# Set a secret key to encrypt the backups
+#diaspora_backups_key: "changeme"
 
 
 # Configuration mirroring configuration items in config/diaspora.yml
