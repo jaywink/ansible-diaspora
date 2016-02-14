@@ -77,13 +77,22 @@ Once deployed, the pod will be available and running. That's it! A few things to
 * Consider setting `diaspora_yml.configuration.settings.enable_registrations` to `false` if you don't want to have other people signing up.
 * If you need to for some reason do some manual stop/start actions to the pod, it is governed by Upstart or SystemD, depending on your OS version. Log into your server and do the normal `sudo service diaspora stop/start/restart` etc as per other Ubuntu services. Replace service name with whatever you set in `servicename` variable, if you changed that.
 
-## Caveats
+## Backups
 
-While automating maintenance, this role doesn't do your backups. [Do your backups!](https://wiki.diasporafoundation.org/FAQ_for_pod_maintainers#How_do_I_back_up_my_pod.3F)
+There are two variables that if set will collect database and uploaded image backups for collection to `backups/` under the diaspora* user home folder.
+
+* `diaspora_backups_copypath` - set this to path + file glob to select DB backup dump. Most recent file will be picked. For example: `/var/lib/postgresql/backups/diaspora*`
+* `diaspora_backups_key` - set this to a secret key, DB backup dump will be encrypted using GPG with this as the passphrase.
+
+Uploaded images will be available as a `diaspora_{{ os_user }}_images.tar.gz` file in the backups folder, depending on the `os_user` variable (by default 'diaspora').
+
+A cron job will be set to do this backups collection daily.
+
+Note! Collecting the backups doesn't help against data loss - make sure to sync the backups daily to another location!
 
 ## Contact
 
-* diaspora*: https://iliketoast.net/u/jaywink / jaywink@iliketoast.net
+* diaspora*: https://iliketoast.net/u/jaywink
 * xmpp: jaywink@dukgo.com
 * email: mail@jasonrobinson.me
 
