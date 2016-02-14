@@ -1,3 +1,5 @@
+[![Galaxy](https://img.shields.io/badge/role-jaywink.diaspora-555555.svg)](https://galaxy.ansible.com/jaywink/diaspora/)
+
 # Ansible role for diaspora*
 
 This Ansible role aims to automate the setup and maintenance of a diaspora* pod as much as possible. All configuration that is normally supported by diaspora* configuration files can be given through variables in this role.
