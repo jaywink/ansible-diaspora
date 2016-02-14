@@ -1,0 +1,17 @@
+---
+galaxy_info:
+  author: Jason Robinson
+  description: diaspora* open source social network server.
+  license: MIT
+  min_ansible_version: 1.9
+  platforms:
+  - name: Ubuntu
+    versions:
+    - 14.04
+    - 14.10
+    - 15.04
+  galaxy_tags:
+    - diaspora
+    - social
+    - decentralized
+    - federated
