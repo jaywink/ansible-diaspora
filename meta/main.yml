@@ -8,7 +8,7 @@ galaxy_info:
   - name: Ubuntu
     versions:
     - trusty
-    - utpic
+    - utopic
     - vivid
   galaxy_tags:
     - diaspora
