@@ -1,4 +1,4 @@
-[![Galaxy](https://img.shields.io/badge/role-jaywink.diaspora-555555.svg)](https://galaxy.ansible.com/jaywink/diaspora/)
+[![Galaxy](https://img.shields.io/badge/role-jaywink.diaspora-555555.svg)](https://galaxy.ansible.com/jaywink/diaspora/) [![Stories in Ready](https://badge.waffle.io/jaywink/ansible-diaspora.png?label=ready&title=Ready)](http://waffle.io/jaywink/ansible-diaspora)
 
 # Ansible role for diaspora*
 
