@@ -71,6 +71,10 @@ Make sure to place the domain name in these variables:
 * `domainname`
 * `diaspora_yml.configuration.environment.url`
 
+### Automatic restarts on memory amount
+
+If you set `diaspora_restart_on_memory` setting to a number (MB), a cron job will restart the diaspora* server hourly if this amount of memory has been taken by the Sidekiq process which is known to hog a large amount of memory.
+
 ## Running your pod
 
 Once deployed, the pod will be available and running. That's it! A few things to note though.

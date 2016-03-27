@@ -1,0 +1,10 @@
+---
+- name: Auto-restart on memory capped script install
+  template: mode=0700 owner="{{ os_user }}" group="{{ os_user }}" src=restart_on_memory_capped.py dest=/home/{{ os_user }}/restart_on_memory_capped.py
+  when: diaspora_restart_on_memory
+- name: Auto-restart on memory capped cron job
+  cron: name="Auto-restart on memory capped for {{ os_user }} diaspora" state=present special_time=hourly job="/home/{{ os_user }}/restart_on_memory_capped.py > /dev/null"
+  when: diaspora_restart_on_memory
+- name: Remove auto-restart on memory capped cron job
+  cron: name="Auto-restart on memory capped for {{ os_user }} diaspora" state=absent
+  when: not diaspora_restart_on_memory

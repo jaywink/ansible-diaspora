@@ -11,3 +11,4 @@
 - include: init.yaml
 - include: apache.yaml
 - include: backups.yaml
+- include: monitoring.yaml

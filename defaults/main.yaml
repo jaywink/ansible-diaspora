@@ -21,6 +21,10 @@ listen_port: 3000
 # Set a secret key to encrypt the backups
 #diaspora_backups_key: "changeme"
 
+# Monitoring
+# If set to a number, will restart if sidekiq memory tops this amount of MB
+diaspora_restart_on_memory: false
+
 
 # Configuration mirroring configuration items in config/diaspora.yml
 # Add any items here which you would normally set in diaspora.yml

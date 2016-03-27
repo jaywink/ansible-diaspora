@@ -24,3 +24,5 @@
     - libpq-dev
     - postgresql
     - python-psycopg2
+    # Monitoring
+    - python3-psutil
