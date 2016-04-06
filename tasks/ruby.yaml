@@ -13,6 +13,7 @@
     - automake
     - bison
     - libffi-dev
+    - libgmp-dev
 - name: Get required Ruby version
   shell: cat /home/{{ os_user }}/diaspora/.ruby-version
   register: ruby_version
