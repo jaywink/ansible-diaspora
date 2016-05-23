@@ -2,11 +2,14 @@
 - name: Node.js repository - Ubuntu
   apt_repository: state=present repo=ppa:chris-lea/node.js
   when: ansible_distribution_major_version|int < 14
+
+# Ubuntu 14.04 has some weird locale issues, make sure some things are set
+# Otherwise postgres will fail to init properly
 - name: Locale patch for postgres
-  # Ubuntu 14.04 has some weird locale issues, make sure some things are set
-  # Otherwise postgres will fail to init properly
   lineinfile: dest=/etc/default/locale line='LANGUAGE="en_US:en"' state=present
+- name: Locale patch for postgres
   lineinfile: dest=/etc/default/locale line='LC_ALL="en_US.UTF-8"' state=present
+
 - name: System dependencies - Ubuntu 14.04
   apt: name={{ item }} state=present update_cache=yes cache_valid_time=86400
   with_items:

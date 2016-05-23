@@ -1,80 +1,49 @@
 <VirtualHost *:80>
     ServerName {{ domainname }}
-    DocumentRoot /home/{{ os_user }}/diaspora/public
-    {% if ssl_cert is defined %}
-        RedirectPermanent / https://{{ domainname }}/
-    {% else %}
-        RewriteEngine On
-
-        RewriteCond %{REQUEST_URI} ^/http-bind
-        RewriteRule ^/(http\-bind.*)$ balancer://chat%{REQUEST_URI} [P,QSA,L]
-
-        RewriteCond %{DOCUMENT_ROOT}/%{REQUEST_FILENAME} !-f
-        RewriteRule ^/(.*)$ balancer://upstream%{REQUEST_URI} [P,QSA,L]
-
-        <Proxy balancer://upstream>
-            BalancerMember http://127.0.0.1:{{ listen_port }}
-        </Proxy>
-
-        <Proxy balancer://chat>
-            BalancerMember http://0.0.0.0:5280
-        </Proxy>
-
-        ProxyRequests Off
-        ProxyVia On
-        ProxyPreserveHost On
-
-        <Proxy *>
-            Require all granted
-        </Proxy>
-
-        <Directory /home/{{ os_user }}/diaspora/public>
-            Require all granted
-            AllowOverride all
-            Options -MultiViews
-        </Directory>
-    {% endif %}
+{% if diaspora_yml.configuration.environment.require_ssl %}
+    RedirectPermanent / https://{{ domainname }}/
 </VirtualHost>
 
-{% if ssl_cert is defined %}
-    <VirtualHost *:443>
-        ServerName {{ domainname }}
-        DocumentRoot /home/{{ os_user }}/diaspora/public
 
-        RewriteEngine On
-
-        RewriteCond %{REQUEST_URI} ^/http-bind
-        RewriteRule ^/(http\-bind.*)$ balancer://chat%{REQUEST_URI} [P,QSA,L]
-
-        RewriteCond %{DOCUMENT_ROOT}/%{REQUEST_FILENAME} !-f
-        RewriteRule ^/(.*)$ balancer://upstream%{REQUEST_URI} [P,QSA,L]
-
-        <Proxy balancer://upstream>
-            BalancerMember http://127.0.0.1:{{ listen_port }}
-        </Proxy>
-
-        <Proxy balancer://chat>
-            BalancerMember http://0.0.0.0:5280
-        </Proxy>
-
-        ProxyRequests Off
-        ProxyVia On
-        ProxyPreserveHost On
-        RequestHeader set X_FORWARDED_PROTO https
-
-        <Proxy *>
-            Require all granted
-        </Proxy>
-
-        <Directory /home/{{ os_user }}/diaspora/public>
-            Require all granted
-            AllowOverride all
-            Options -MultiViews
-        </Directory>
-
-        SSLEngine On
-        SSLCertificateFile /etc/ssl/certs/{{ servicename }}.crt
-        SSLCertificateKeyFile /etc/ssl/private/{{ servicename }}.key
-        SSLCertificateChainFile /etc/ssl/certs/{{ servicename }}.chain.crt
-    </VirtualHost>
+<VirtualHost *:443>
+    ServerName {{ domainname }}
 {% endif %}
+    DocumentRoot /home/{{ os_user }}/diaspora/public
+
+    RewriteEngine On
+
+    RewriteCond %{REQUEST_URI} ^/http-bind
+    RewriteRule ^/(http\-bind.*)$ balancer://chat%{REQUEST_URI} [P,QSA,L]
+
+    RewriteCond %{DOCUMENT_ROOT}/%{REQUEST_FILENAME} !-f
+    RewriteRule ^/(.*)$ balancer://upstream%{REQUEST_URI} [P,QSA,L]
+
+    <Proxy balancer://upstream>
+        BalancerMember http://127.0.0.1:{{ listen_port }}
+    </Proxy>
+
+    <Proxy balancer://chat>
+        BalancerMember http://0.0.0.0:5280
+    </Proxy>
+
+    ProxyRequests Off
+    ProxyVia On
+    ProxyPreserveHost On
+
+    <Proxy *>
+        Require all granted
+    </Proxy>
+
+    <Directory /home/{{ os_user }}/diaspora/public>
+        Require all granted
+        Options -MultiViews -Indexes
+    </Directory>
+
+{% if diaspora_yml.configuration.environment.require_ssl %}
+    RequestHeader set X_FORWARDED_PROTO https
+    SSLEngine On
+    SSLCertificateFile /etc/ssl/certs/{{ servicename }}.crt
+    SSLCertificateKeyFile /etc/ssl/private/{{ servicename }}.key
+    SSLCertificateChainFile /etc/ssl/certs/{{ servicename }}.chain.crt
+{% endif %}
+</VirtualHost>

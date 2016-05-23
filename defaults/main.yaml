@@ -34,7 +34,8 @@ diaspora_yml:
     environment:
       url: "http://localhost/"
       certificate_authorities: '/etc/ssl/certs/ca-certificates.crt'
-      #require_ssl: true
+      # Whether to install SSL certs and force https redirect from http
+      require_ssl: true
       sidekiq:
         ## NOTE! Namespaces are being removed in diaspora* 0.6 - use 'redis' to specify an url instead
         namespace: diaspora

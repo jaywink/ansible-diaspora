@@ -18,17 +18,17 @@
   copy:
     content: "{{ ssl_cert }}"
     dest: /etc/ssl/certs/{{ servicename }}.crt
-  when: ssl_cert is defined
+  when: diaspora_yml.configuration.environment.require_ssl and ssl_cert is defined
 - name: SSL key
   copy:
     content: "{{ ssl_key }}"
     dest: /etc/ssl/private/{{ servicename }}.key
-  when: ssl_key is defined
+  when: diaspora_yml.configuration.environment.require_ssl and ssl_key is defined
 - name: SSL chain
   copy:
     content: "{{ ssl_chain }}"
     dest: /etc/ssl/certs/{{ servicename }}.chain.crt
-  when: ssl_chain is defined
+  when: diaspora_yml.configuration.environment.require_ssl and ssl_chain is defined
 - name: Enable site
   command: a2ensite {{ servicename }}
   notify:
