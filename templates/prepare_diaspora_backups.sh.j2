@@ -10,7 +10,7 @@ cd /home/{{ os_user }}/backups/
 [[ -e $dump_file.gpg ]] && rm -f $dump_file.gpg
 gpg -c --passphrase "{{ diaspora_backups_key }}" --batch $dump_file
 chown {{ os_user }}: $dump_file.gpg
-chmod 0600 $dump_file.gpg
+chmod 0640 $dump_file.gpg
 rm -f $dump_file
 
 # Collect uploaded images
@@ -18,7 +18,7 @@ images_file="diaspora_{{ os_user }}_images.tar.gz"
 [[ -e $images_file ]] && rm -f $images_file
 tar -caf $images_file /home/{{ os_user }}/diaspora/public/uploads/images/*
 chown {{ os_user }}: $images_file
-chmod 0600 $images_file
+chmod 0640 $images_file
 
 # Clean up files older than 3 days
 find /home/{{ os_user }}/backups/* -mtime +3 -exec rm {} \;
