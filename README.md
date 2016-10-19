@@ -43,7 +43,7 @@ Apache2 only for now. Pull requests welcome for other options!
 
 ## Diaspora* versions supported
 
-Currently this role supports the current stable (0.5.x) releases and the development branch.
+Currently this role supports the current stable (0.6.x) releases. Anything else might work but is not tested.
 
 When diaspora* pushes out a new release or major changes to the develop branch, it is possible this role will start to fail. Please [follow the author](https://iliketoast.net/u/jaywink) on diaspora* for news and updates regarding this role.
 
@@ -56,11 +56,15 @@ The configuration is split into 4 main parts:
 * Role configuration. This part contains things like repository information and the user on the target machine to install diaspora* on.
 * Diaspora* configuration. Anything inside `diaspora_yml` is part of the diaspora* normal configuration and will get dumped as is into `config/diaspora.yml`. This means you can set *any* available configuration values into this YAML object, and they will be available for diaspora*. Only a part of the possible items are included in the defaults. Check [diaspora* configuration example](https://github.com/diaspora/diaspora/blob/develop/config/diaspora.yml.example) for the full list.
 * Database configuration. These will be injected into `config/database.yml`.
-* SSL certificates. These will be copied to relevant locations.
+* SSL certificates. Use [ansible-letsencrypt](https://github.com/jaywink/ansible-letsencrypt) or specify full certificates in config, which will be copied to relevant locations.
 
 ### SSL
 
-Default configuration will make the pod run on HTTP, which of course is bad. To make it run on HTTPS, get some certificates, place them in your vars file, and then switch `diaspora_yml.configuration.environment.require_ssl` to `true`. Rerun role, that is it. No excuses to run on HTTP.
+Default configuration will make the pod run on HTTPS. And we're not going to help you figure out how to run it on HTTP.
+
+There are two options, controlled by setting `use_ansible_letsencrypt`:
+1) Use [ansible-letsencrypt](https://github.com/jaywink/ansible-letsencrypt). This is default so all you need to do is set the correct *ansible-letsencrypt* variables in your config!
+2) Specify full certificates in config, which will be copied to relevant locations.
 
 ### Domain name
 
@@ -99,8 +103,9 @@ Note! Collecting the backups doesn't help against data loss - make sure to sync 
 ## Contact
 
 * diaspora*: https://iliketoast.net/u/jaywink
-* xmpp: jaywink@dukgo.com
+* freenode irc: jaywink
 * email: mail@jasonrobinson.me
+* xmpp: jaywink@dukgo.com
 
 ## License
 

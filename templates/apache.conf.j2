@@ -42,8 +42,14 @@
 {% if diaspora_yml.configuration.environment.require_ssl %}
     RequestHeader set X_FORWARDED_PROTO https
     SSLEngine On
-    SSLCertificateFile /etc/ssl/certs/{{ servicename }}.crt
-    SSLCertificateKeyFile /etc/ssl/private/{{ servicename }}.key
-    SSLCertificateChainFile /etc/ssl/certs/{{ servicename }}.chain.crt
+    {% if use_ansible_letsencrypt %}
+        SSLCertificateFile /etc/letsencrypt/live/{{ letsencrypt_domain }}/cert.pem
+        SSLCertificateKeyFile /etc/letsencrypt/live/{{ letsencrypt_domain }}/privkey.pem
+        SSLCertificateChainFile /etc/letsencrypt/live/{{ letsencrypt_domain }}/chain.pem
+    {% else %}
+        SSLCertificateFile /etc/ssl/certs/{{ servicename }}.crt
+        SSLCertificateKeyFile /etc/ssl/private/{{ servicename }}.key
+        SSLCertificateChainFile /etc/ssl/certs/{{ servicename }}.chain.crt
+    {% endif %}
 {% endif %}
 </VirtualHost>
