@@ -34,7 +34,6 @@ diaspora_yml:
     environment:
       url: "http://localhost/"
       certificate_authorities: '/etc/ssl/certs/ca-certificates.crt'
-      # Whether to install SSL certs and force https redirect from http
       require_ssl: true
       sidekiq:
         ## NOTE! Namespaces are being removed in diaspora* 0.6 - use 'redis' to specify an url instead
@@ -91,6 +90,15 @@ db_host: 127.0.0.1
 db_port: 5432
 db_name: diaspora
 db_pool: 25
+
+
+# SSL setup
+# Set either 'use_ansible_letsencrypt' to 'true' or give full certs in 'ssl_cert', 'ssl_key' and 'ssl_chain'.
+
+# LetsEncrypt
+# If true, you MUST also give the appropriate variables as per the 'ansible-letsencrypt' role.
+# See full details: https://github.com/jaywink/ansible-letsencrypt
+use_ansible_letsencrypt: true
 
 # Certificates
 #ssl_cert: |

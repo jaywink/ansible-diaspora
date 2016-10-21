@@ -1,6 +1,6 @@
-# diaspora*
+# {{ servicename }}
 
-description "diaspora*"
+description "{{ servicename }}"
 author "Jason Robinson <mail@jasonrobinson.me>"
 
 start on runlevel [2345]
@@ -15,4 +15,4 @@ script
     /home/{{ os_user }}/start_server.sh
 end script
 
-pre-stop exec /usr/bin/killall -u {{ os_user }} ruby && sleep 10
+pre-stop exec /usr/bin/killall -u {{ os_user }} ruby; sleep 10
