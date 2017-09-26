@@ -3,11 +3,10 @@
 - name: Ensure backups path exists
   become_user: "{{ os_user }}"
   file: path=/home/{{ os_user }}/backups mode=0750 state=directory
-  when: diaspora_backups_copypath is defined
+
 - name: Install backups scripts
   become_user: "{{ os_user }}"
   template: dest=/home/{{ os_user }}/prepare_diaspora_backups.sh src=prepare_diaspora_backups.sh.j2 mode=0750
-  when: diaspora_backups_copypath is defined
+
 - name: Set cron for backup script execution
   cron: backup=yes hour=6 minute=10 name="diaspora_{{ os_user }}_db_backup" state=present user=root job="/home/{{ os_user }}/prepare_diaspora_backups.sh"
-  when: diaspora_backups_copypath is defined

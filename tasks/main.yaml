@@ -11,4 +11,6 @@
 - include: init.yaml
 - include: apache.yaml
 - include: backups.yaml
+  when: diaspora_backups_copypath is defined
 - include: monitoring.yaml
+  when: diaspora_restart_on_memory
