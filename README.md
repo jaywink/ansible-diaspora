@@ -43,9 +43,9 @@ Apache2 only for now. Pull requests welcome for other options!
 
 ## Diaspora* versions supported
 
-Currently this role supports the current stable (0.6.x) releases. Anything else might work but is not tested.
+This role has been tested with stable releases up to 0.7. Anything else might work but is not tested.
 
-When diaspora* pushes out a new release or major changes to the develop branch, it is possible this role will start to fail. Please [follow the author](https://iliketoast.net/u/jaywink) on diaspora* for news and updates regarding this role.
+When diaspora* pushes out a new release or major changes to the develop branch, it is possible this role will start to fail. Please [follow the author](https://jasonrobinson.me) for news and updates regarding this role.
 
 ## Configuration
 
@@ -102,10 +102,9 @@ Note! Collecting the backups doesn't help against data loss - make sure to sync 
 
 ## Contact
 
-* diaspora*: https://iliketoast.net/u/jaywink
+* The Federation: https://jasonrobinson.me
 * freenode irc: jaywink
 * email: mail@jasonrobinson.me
-* xmpp: jaywink@dukgo.com
 
 ## License
 
