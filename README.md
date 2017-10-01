@@ -18,6 +18,11 @@ What is diaspora*? [Find out here](http://diasporafoundation.org).
 
 Tested on 1.9.x.
 
+### Third-party roles
+
+* geerlingguy.nodejs
+* jaywink.letsencrypt  # If using LetsEncrypt certificates
+
 ### Hardware
 
 This role includes a slightly more light weight configuration than the default instructions. However, a minimum of 1GB of RAM is still recommended to run diaspora* for a small amount of users.

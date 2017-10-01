@@ -15,4 +15,5 @@ galaxy_info:
     - social
     - decentralized
     - federated
-dependencies: []
+dependencies:
+  - geerlingguy.nodejs
