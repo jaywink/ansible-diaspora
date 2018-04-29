@@ -28,6 +28,6 @@ for proc in psutil.process_iter():
                     logfile.write("{datetime} | Restart done\n".format(
                         datetime=datetime.datetime.now().isoformat()
                     ))
-    except psutil.NoSuchProcess:
-        # Process went away while we're looping
+    except (psutil.NoSuchProcess, KeyError):
+        # Process went away while we're looping or user not found
         pass
