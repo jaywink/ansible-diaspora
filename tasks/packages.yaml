@@ -3,10 +3,12 @@
 # Otherwise postgres will fail to init properly
 - name: Locale patch for postgres
   lineinfile: dest=/etc/default/locale line='LANGUAGE="en_US:en"' state=present
+  when: db_setup_database
 - name: Locale patch for postgres
   lineinfile: dest=/etc/default/locale line='LC_ALL="en_US.UTF-8"' state=present
+  when: db_setup_database
 
-- name: System dependencies - Ubuntu 14.04
+- name: System dependencies - Ubuntu
   apt: name={{ item }} state=present update_cache=yes cache_valid_time=86400
   with_items:
     - apache2
@@ -20,7 +22,12 @@
     - libxml2-dev
     - libxslt-dev
     - libpq-dev
-    - postgresql
     - python-psycopg2
     # Monitoring
     - python3-psutil
+
+- name: Install postgres
+  apt: name={{ item }} state=present
+  with_items:
+    - postgresql
+  when: db_setup_database

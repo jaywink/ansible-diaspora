@@ -16,7 +16,7 @@ What is diaspora*? [Find out here](http://diasporafoundation.org).
 
 ### Ansible
 
-Tested on 1.9.x.
+Requires 2.x.
 
 ### Third-party roles
 
@@ -33,6 +33,7 @@ Currently only Ubuntu targets have verified. Ubuntu versions below have been ver
 
 * 14.04 (Trusty)
 * 15.04 (Vivid)
+* 18.04 (Bionic)
 
 15.10 is not supported, see [this issue](https://github.com/jaywink/ansible-diaspora/issues/1).
 
@@ -71,6 +72,12 @@ There are two options, controlled by setting `use_ansible_letsencrypt`:
 1) Use [ansible-letsencrypt](https://github.com/jaywink/ansible-letsencrypt). This is default so all you need to do is set the correct *ansible-letsencrypt* variables in your config!
 2) Specify full certificates in config, which will be copied to relevant locations.
 
+### Database
+
+By default the role will install PostgreSQL and create a user and database.
+
+Disable this by setting `db_setup_database: false`.
+
 ### Domain name
 
 Before creating your pod, obviously you need to think of a domain name. This cannot be changed in diaspora*, though the role doesn't enforce this. Changing it will break everything in your pod though!
@@ -107,8 +114,8 @@ Note! Collecting the backups doesn't help against data loss - make sure to sync 
 
 ## Contact
 
-* The Federation: https://jasonrobinson.me
-* freenode irc: jaywink
+* Fediverse: https://jasonrobinson.me
+* Matrix: @jaywink:federator.dev
 * email: mail@jasonrobinson.me
 
 ## License

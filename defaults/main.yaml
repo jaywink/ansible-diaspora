@@ -84,6 +84,8 @@ diaspora_yml:
 
 
 # Database configuration
+# Set to true to also install postgres, create db user and database
+db_setup_database: true
 db_user: diaspora
 db_password: changeme
 db_host: 127.0.0.1

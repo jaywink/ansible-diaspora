@@ -1,12 +1,16 @@
 ---
 - name: Database configuration
   template: dest=/home/{{ os_user }}/diaspora/config/database.yml src=database.yml.j2
+
 - name: Create database user
   postgresql_user: name={{ db_user }} password={{ db_password }} role_attr_flags=CREATEDB,LOGIN state=present
   become_user: postgres
+  when: db_setup_database
 - name: Create database
   postgresql_db: name={{ db_name }} owner={{ db_user }} state=present
   become_user: postgres
+  when: db_setup_database
+
 - name: Shut down service, if drop_and_recreate_db is given
   service: name={{ servicename }} state=stopped
   when: drop_and_recreate_db is defined
@@ -17,11 +21,13 @@
   when: drop_and_recreate_db is defined
   become: yes
   become_user: "{{ os_user }}"
+
 - name: Initialize db, if createdb given
   script: shell_wrapper.sh bin/rake db:create db:schema:load
   when: createdb is defined
   become: yes
   become_user: "{{ os_user }}"
+
 - name: Shut down service, if createdb not given
   service: name={{ servicename }} state=stopped
   when: createdb is not defined
