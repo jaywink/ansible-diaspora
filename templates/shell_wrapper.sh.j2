@@ -11,18 +11,24 @@
 
 set -e
 
-
-source $HOME/.bash_profile
-
-export RAILS_ENV=production
-export DB=postgres
-
-export DIASPORA_RUBY_VERSION=`cat $HOME/diaspora/.ruby-version`
-
-cd $HOME/diaspora
-
-if [[ "$1 $2" -ne "rvm install" ]]; then
-    rvm use $DIASPORA_RUBY_VERSION@diaspora
+if [ "$(whoami)" == "root" ]; then
+    echo "Don't run this as root"
+    exit 1
 fi
 
+# shellcheck disable=1091
+source "${HOME}/.bash_profile"
+
+export RAILS_ENV=production
+export DB={{ db_type }}
+
+DIASPORA_RUBY_VERSION=$(cat "${HOME}/diaspora/.ruby-version")
+export DIASPORA_RUBY_VERSION
+
+cd "${HOME}/diaspora"
+
+if [[ "$1 $2" != "rvm install" ]]; then
+    rvm use "${DIASPORA_RUBY_VERSION}@diaspora"
+fi
+# shellcheck disable=2086
 $1 $2 $3 $4 $5 $6 $7 $8 $9

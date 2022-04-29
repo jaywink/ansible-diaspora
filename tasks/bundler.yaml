@@ -1,11 +1,12 @@
 ---
 - name: Install bundler
   # We use a wrapper script as RVM doesn't play nice through Ansible
-  script: shell_wrapper.sh gem install bundler
+  shell: /usr/local/bin/shell_wrapper.sh gem install bundler
   become: yes
   become_user: "{{ os_user }}"
+
 - name: Install gems
   # We use a wrapper script as RVM doesn't play nice through Ansible
-  script: shell_wrapper.sh bin/bundle install -j4 --without test development --with postgresql
+  shell: /usr/local/bin/shell_wrapper.sh bin/bundle install -j4 --without test development --with {{ db_type }}
   become: yes
   become_user: "{{ os_user }}"

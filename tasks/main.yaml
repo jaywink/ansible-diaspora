@@ -6,7 +6,9 @@
 - include: config.yaml
 - include: ruby.yaml
 - include: bundler.yaml
-- include: database.yaml
+- name: Configure database
+  include_tasks: database.yaml
+  when: db_setup_database
 - include: assets.yaml
 - include: init.yaml
 - include: apache.yaml

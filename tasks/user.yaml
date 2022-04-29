@@ -1,7 +1,15 @@
 ---
 - name: Diaspora user
-  user: name={{ os_user }} state=present
+  user:
+    name: "{{ os_user }}"
+    state: present
+    password: "{{ os_user_password }}"
+    home: "{{ diaspora_home }}"
+    create_home: true
+    shell: /bin/bash
+
 - name: Ensure www-data member of diaspora group
   user: name=www-data append=yes groups={{ os_user }} state=present
+
 - name: Make Diaspora home non-world readable
-  file: path=/home/{{ os_user }} mode=0750 state=directory
+  file: path={{ diaspora_home }} mode=0750 state=directory

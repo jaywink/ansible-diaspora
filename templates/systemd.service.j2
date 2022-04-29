@@ -2,7 +2,7 @@
 Description=Diaspora*
 
 [Service]
-ExecStart=/bin/bash -ec '/home/{{ os_user }}/start_server.sh'
+ExecStart=/bin/bash -ec '{{ diaspora_home }}/start_server.sh'
 
 [Install]
 WantedBy=multi-user.target
