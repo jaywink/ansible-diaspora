@@ -115,10 +115,8 @@ Note! Collecting the backups doesn't help against data loss - make sure to sync 
 
 ## Credits
 
-Jason Robinson
-* email: mail@jasonrobinson.me
-Antonio J. Delgado
-* email: QaENiVBtEVydYzBmMAWd56I8I@susurrando.com
+* Jason Robinson (mail@jasonrobinson.me)
+* Antonio J. Delgado (Current maintainer, QaENiVBtEVydYzBmMAWd56I8I@susurrando.com)
 
 ## License
 
