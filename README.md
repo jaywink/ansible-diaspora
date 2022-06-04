@@ -34,6 +34,7 @@ Currently only Ubuntu targets have verified. Ubuntu versions below have been ver
 * 14.04 (Trusty)
 * 15.04 (Vivid)
 * 18.04 (Bionic)
+* 20.04 (Focal)
 
 15.10 is not supported, see [this issue](https://github.com/jaywink/ansible-diaspora/issues/1).
 
@@ -41,7 +42,7 @@ Pull requests welcome to include other platforms!
 
 ### Database
 
-PostgreSQL only for now. Pull requests welcome for MySQL/MariaDB!
+PostgreSQL and MySQL only for now. Pull requests welcome for others!
 
 ### Web server
 
@@ -51,7 +52,7 @@ Apache2 only for now. Pull requests welcome for other options!
 
 This role has been tested with stable releases up to 0.7. Anything else might work but is not tested.
 
-When diaspora* pushes out a new release or major changes to the develop branch, it is possible this role will start to fail. Please [follow the author](https://jasonrobinson.me) for news and updates regarding this role.
+When diaspora* pushes out a new release or major changes to the develop branch, it is possible this role will start to fail. Please [follow the author](https://github.com/ajdelgado) for news and updates regarding this role.
 
 ## Configuration
 
@@ -112,11 +113,10 @@ A cron job will be set to do this backups collection daily.
 
 Note! Collecting the backups doesn't help against data loss - make sure to sync the backups daily to another location!
 
-## Contact
+## Credits
 
-* Fediverse: https://jasonrobinson.me
-* Matrix: @jaywink:federator.dev
-* email: mail@jasonrobinson.me
+* Jason Robinson (mail@jasonrobinson.me)
+* Antonio J. Delgado (Current maintainer, QaENiVBtEVydYzBmMAWd56I8I@susurrando.com)
 
 ## License
 

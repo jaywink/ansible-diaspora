@@ -8,7 +8,7 @@
 <VirtualHost *:443>
     ServerName {{ domainname }}
 {% endif %}
-    DocumentRoot /home/{{ os_user }}/diaspora/public
+    DocumentRoot {{ diaspora_home }}/diaspora/public
 
     RewriteEngine On
 
@@ -34,7 +34,7 @@
         Require all granted
     </Proxy>
 
-    <Directory /home/{{ os_user }}/diaspora/public>
+    <Directory {{ diaspora_home }}/diaspora/public>
         Require all granted
         Options -MultiViews -Indexes
     </Directory>
@@ -42,14 +42,19 @@
 {% if diaspora_yml.configuration.environment.require_ssl %}
     RequestHeader set X_FORWARDED_PROTO https
     SSLEngine On
-    {% if use_ansible_letsencrypt %}
-        SSLCertificateFile /etc/letsencrypt/live/{{ letsencrypt_domain }}/cert.pem
-        SSLCertificateKeyFile /etc/letsencrypt/live/{{ letsencrypt_domain }}/privkey.pem
-        SSLCertificateChainFile /etc/letsencrypt/live/{{ letsencrypt_domain }}/chain.pem
-    {% else %}
-        SSLCertificateFile /etc/ssl/certs/{{ servicename }}.crt
-        SSLCertificateKeyFile /etc/ssl/private/{{ servicename }}.key
-        SSLCertificateChainFile /etc/ssl/certs/{{ servicename }}.chain.crt
-    {% endif %}
+{% if use_ansible_letsencrypt %}
+    SSLCertificateFile /etc/letsencrypt/live/{{ letsencrypt_domain }}/cert.pem
+    SSLCertificateKeyFile /etc/letsencrypt/live/{{ letsencrypt_domain }}/privkey.pem
+    SSLCertificateChainFile /etc/letsencrypt/live/{{ letsencrypt_domain }}/chain.pem
+{% else %}
+{% if use_cert_files %}
+    SSLCertificateFile {{ ssl_cert_file }}
+    SSLCertificateKeyFile {{ ssl_key_file }}
+    SSLCertificateChainFile {{ ssl_chain_file }}
+{% else %}
+    SSLCertificateFile /etc/ssl/certs/{{ servicename }}.crt
+    SSLCertificateKeyFile /etc/ssl/private/{{ servicename }}.key
+    SSLCertificateChainFile /etc/ssl/certs/{{ servicename }}.chain.crt
+{% endif %}{% endif %}
 {% endif %}
 </VirtualHost>

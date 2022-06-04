@@ -1,3 +1,6 @@
 ---
 - name: Diaspora configuration file
-  template: dest=/home/{{ os_user }}/diaspora/config/diaspora.yml src=diaspora.yml.j2
+  template:
+    dest: "{{ diaspora_home }}/diaspora/config/diaspora.yml"
+    src: diaspora.yml.j2
+    backup: yes

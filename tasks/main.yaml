@@ -1,15 +1,17 @@
 ---
-- include: packages.yaml
-- include: user.yaml
-- include: rvm.yaml
-- include: source.yaml
-- include: config.yaml
-- include: ruby.yaml
-- include: bundler.yaml
-- include: database.yaml
-- include: assets.yaml
-- include: init.yaml
-- include: apache.yaml
-- include: backups.yaml
+- include_tasks: packages.yaml
+- include_tasks: user.yaml
+- include_tasks: rvm.yaml
+- include_tasks: source.yaml
+- include_tasks: config.yaml
+- include_tasks: ruby.yaml
+- include_tasks: bundler.yaml
+- name: Configure database
+  include_tasks: database.yaml
+  when: db_setup_database
+- include_tasks: assets.yaml
+- include_tasks: init.yaml
+- include_tasks: apache.yaml
+- include_tasks: backups.yaml
   when: diaspora_backups_copypath is defined
-- include: monitoring.yaml
+- include_tasks: monitoring.yaml

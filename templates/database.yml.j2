@@ -8,21 +8,30 @@ postgresql: &postgresql
 
 mysql: &mysql
   adapter: mysql2
-  host: "localhost"
-  port: 3306
-  username: "root"
-  password: ""
-#  socket: /tmp/mysql.sock
+  host: "{{ db_host }}"
+  port: {{ db_port }}
+  username: "{{ db_user }}"
+  password: "{{ db_password }}"
+{% if db_socket is defined %}
+  socket: {{ db_socket }}
+{% else %}
+  # socket: /var/run/mysqld/mysqld.sock
+{% endif %}
   encoding: utf8mb4
   collation: utf8mb4_bin
-
 
 # Comment the the mysql line and uncomment the postgres line
 # if you want to use postgres
 common: &common
   # Choose one of the following
+{% if db_type == 'postgresql' %}
   <<: *postgresql
   #<<: *mysql
+{% endif %}
+{% if db_type == 'mysql' %}
+  #<<: *postgresql
+  <<: *mysql
+{% endif %}
 
   # Should match environment.sidekiq.concurrency
   pool: {{ db_pool }}

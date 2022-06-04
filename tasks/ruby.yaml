@@ -14,11 +14,13 @@
     - bison
     - libffi-dev
     - libgmp-dev
+
 - name: Get required Ruby version
-  shell: cat /home/{{ os_user }}/diaspora/.ruby-version
+  shell: cat {{ diaspora_home }}/diaspora/.ruby-version
   register: ruby_version
+
 - name: Install or build Ruby using RVM
   # We use a wrapper script as RVM doesn't play nice through Ansible
-  script: shell_wrapper.sh rvm install {{ ruby_version.stdout }}
+  shell: /usr/local/bin/shell_wrapper.sh rvm install {{ ruby_version.stdout}}
   become: yes
   become_user: "{{ os_user }}"

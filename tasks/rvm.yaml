@@ -1,11 +1,29 @@
 ---
-- name: RVM gpg key
-  shell: /usr/bin/gpg --keyserver hkp://pool.sks-keyservers.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+- name: RVM gpg key mpapis
+  shell: curl -sSL https://rvm.io/mpapis.asc | gpg2 --import -
   become: yes
   become_user: "{{ os_user }}"
+
+- name: RVM gpg key pkuczynski
+  shell: curl -sSL https://rvm.io/pkuczynski.asc | gpg2 --import -
+  become: yes
+  become_user: "{{ os_user }}"
+
+- name: Get RVM installer
+  get_url:
+    url: https://s.diaspora.software/1t
+    dest: /tmp/rvm_installer.sh
+    mode: '0755'
+
 - name: Install RVM
-  shell: /usr/bin/curl -L https://s.diaspora.software/1t | bash
+  shell: bash /tmp/rvm_installer.sh
   become: yes
   become_user: "{{ os_user }}"
+
 - name: RVM in .bashrc
-  lineinfile: dest=/home/{{ os_user }}/.bashrc state=present line='[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"'
+  lineinfile: dest={{ diaspora_home }}/.bashrc state=present line='[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"'
+
+- name: Run RVM autolibs
+  shell: "'{{ diaspora_home }}/.rvm/bin/rvm' autolibs read-fail"
+  become: yes
+  become_user: "{{ os_user }}"

@@ -1,7 +1,7 @@
 ---
 - name: Startup script
   become_user: "{{ os_user }}"
-  template: dest=/home/{{ os_user }}/start_server.sh src=start_server.sh mode=0700
+  template: dest={{ diaspora_home }}/start_server.sh src=start_server.sh.j2 mode=0700
 
 # Upstart, Ubuntu 14.10 and below
 - name: Upstart init template
@@ -12,6 +12,7 @@
 - name: Systemd service template
   template: dest=/lib/systemd/system/{{ servicename }}.service src=systemd.service.j2
   when: ansible_distribution_major_version|int >= 15
+
 - name: Reload systemd
   command: systemctl daemon-reload
   when: ansible_distribution_major_version|int >= 15
